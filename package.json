@@ -1,0 +1,13 @@
+{
+  "name": "new-notes-app",
+  "version": "2.0.0",
+  "description": "a simple note web app that fetch data from a REST API",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "islam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -6,13 +6,19 @@
   "scripts": {
     "start": "concurrently --kill-others \" node jsonServer.js \" \" node index.js  \" "
   },
-  "keywords": ["Node.js", "notes", "express", "ejs", "bootstrap", "axios"],
+  "keywords": [
+    "Node.js",
+    "notes",
+    "express",
+    "ejs",
+    "bootstrap",
+    "axios"
+  ],
   "author": "Mohamed Islam Boumendjel",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
-    "bootstrap": "^4.5.3",
     "concurrently": "^5.3.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",

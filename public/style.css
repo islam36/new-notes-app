@@ -1,0 +1,36 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+
+h1 small{
+    font-size: xx-small;
+}
+
+h1 svg {
+    fill: #ffc107;
+    width: 50px;
+    height: 50px;
+}
+
+
+.card{
+    margin: 10px;
+    cursor: pointer;
+}
+
+.card-header{
+    font-size: xx-large;
+    padding: 0 5px;
+    text-transform: uppercase;
+}
+
+.card-body{
+    padding: 10px;
+}
+
+
+

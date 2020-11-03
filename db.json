@@ -18,32 +18,7 @@
     {
       "id": 3,
       "title": "foobar",
-      "note": "lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsum  lorem ipsum lorem ipsumlorem ipsum lorem ipsum"
-    },
-    {
-      "title": "title",
-      "note": "note",
-      "id": 4
-    },
-    {
-      "title": "title",
-      "note": "test",
-      "id": 5
-    },
-    {
-      "title": "test",
-      "note": "test",
-      "id": 6
-    },
-    {
-      "title": "test",
-      "note": "test",
-      "id": 7
-    },
-    {
-      "title": "node js",
-      "note": "test",
-      "id": 8
+      "note": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum  lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
     }
   ]
 }

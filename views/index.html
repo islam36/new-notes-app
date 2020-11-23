@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>New Note app</title>
+</head>
+<body>
+    <header class="container my-5">
+        <h1 class="text-center">
+            <svg xmlns="http://w148ww.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path
+                    d="M312 320h136V56c0-13.3-10.7-24-24-24H24C10.7 32 0 42.7 0 56v400c0 13.3 10.7 24 24 24h264V344c0-13.2 10.8-24 24-24zm129 55l-98 98c-4.5 4.5-10.6 7-17 7h-6V352h128v6.1c0 6.3-2.5 12.4-7 16.9z" />
+            </svg>
+            Note app
+        </h1>
+    </header>
+
+    <main class="container my-5">
+        <h1>Notes</h1>
+        <hr>
+        <div class="row" id="notes">
+        </div>
+        <hr>
+        <button class="btn btn-block btn-primary" onclick="toggleModal(newNoteModal);">
+            Add new note
+        </button>
+    </main>
+
+
+    <!-- addNote form modal -->
+    <div class="container modal newNote">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="my-3">Add new note</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title" class="form-control"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="note">Note</label>
+                                <textarea name="note" class="form-control" id="note"  required>
+                                </textarea>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Add note</button>
+                            <button class="btn btn-secondary" type="button" onclick="toggleModal(newNoteModal);" >close</button>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </div>      
+    </div>
+
+
+    <!-- showNote modal -->
+    <div class="container modal showNote">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="id">ID</label>
+                                <input type="number" name="id" id="id" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title" class="form-control" value="" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="note">Note</label>
+                                <textarea name="note" class="form-control" id="note" value="" required>
+                                </textarea>
+                            </div>
+                            <div class="mt-auto">
+                                <button class="btn btn-success" type="submit">save note</button>
+                                <button class="btn btn-danger" type="button" onclick="deleteNote();" >delete note</button>
+                                <button class="btn btn-secondary ml-auto" type="button" onclick="toggleModal(showNoteModal);" >close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </div>      
+    </div>
+
+
+    <script src="/script.js"></script>
+</body>
+</html>

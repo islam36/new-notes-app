@@ -1,41 +1,147 @@
 const express = require('express');
-const axios = require('axios');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.set('view engine','ejs');
-app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req,res) => {
-    axios.get('http://localhost:8001/notes')
-        .then( (response) => {
-            var notes = response.data;
-            res.render('index.ejs' , {notes: notes});
-        })
-        .catch( (err) => {
-            console.log(err);
-        });
+    res.sendFile(__dirname + '/views/index.html');
 });
 
 
-app.post('/' , (req, res) => {
-    axios({
-        url: 'http://localhost:8001/notes',
-        method: 'post',
-        data: {
-            title: req.body.title,
-            note: req.body.note
+app.get('/notes', (req, res) => {
+    try {
+        if(fs.existsSync('db.json') ) {
+            let notes = JSON.parse(fs.readFileSync('db.json')).notes;
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(notes);
         }
-    })
-        .then((response) => {
-            res.redirect('/');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        else {
+            let err = new Error('File not found');
+            throw err;
+        }
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 404;
+        res.end(err);
+    }
+
+});
+
+
+app.post('/notes', (req, res) => {
+    try {
+        if(fs.existsSync('db.json') ){
+            let data = JSON.parse(fs.readFileSync('db.json'));
+            let notes = data.notes;
+            let newNote = {
+                id: notes.length,
+                title: req.body.title,
+                note: req.body.note
+            };
+            notes.push(newNote);
+
+            fs.writeFileSync('db.json', JSON.stringify(data, null, 2));
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(newNote);
+        }
+        else {
+            let err = new Error('File not found');
+            throw err;
+        }
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 404;
+        res.end(err);
+    }
+});
+
+
+app.put('/notes', (req, res) => {
+    try {
+        if(fs.existsSync('db.json') ){
+            let data = JSON.parse(fs.readFileSync('db.json'));
+            let notes = data.notes;
+
+            
+            let note = null;         
+            for(let i=0; i < notes.length; i++){
+                if (notes[i].id == req.body.id) {
+                    note = notes[i];
+                    break;
+                }
+            }
+
+            if(note != null) {
+                note.title = req.body.title;
+                note.note = req.body.note; 
+                
+                fs.writeFileSync('db.json', JSON.stringify(data, null, 2));
+
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(note);
+            }
+            else {
+                let err = new Error('Note not found!');                
+                throw err;
+            }
+
+
+        }
+        else {
+            let err = new Error('File not found');
+            throw err;
+        }
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 404;
+        res.end(err);
+    }
+});
+
+
+app.delete('/notes', (req, res) => {
+    try {
+        if(fs.existsSync('db.json') ){
+            let data = JSON.parse(fs.readFileSync('db.json'));
+            let notes = data.notes;
+
+            if (req.body.id > -1 && req.body.id < notes.length) {
+                notes.splice(req.body.id, 1);
+
+                for (let i = 0; i < notes.length; i++){
+                    notes[i].id = i;
+                }
+
+
+                fs.writeFileSync('db.json', JSON.stringify(data, null, 2));
+
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                let response = { id: req.body.id };
+                res.json(response);
+            }
+            else {
+                let err = new Error('Note not found!');
+                throw err;
+            }
+        }
+        else {
+            let err = new Error('File not found');
+            throw err;
+        }
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 404;
+        res.end(err);
+    }
 });
 
 

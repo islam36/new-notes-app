@@ -4,7 +4,8 @@
   "description": "Just a simple web app to take notes that I made in order to practise what I learned",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \" node jsonServer.js \" \" node index.js  \" "
+    "start": "nodemon index.js",
+    "start2": "concurrently --kill-others \" node jsonServer.js \" \" nodemon index.js  \" "
   },
   "keywords": [
     "Node.js",
@@ -17,10 +18,8 @@
   "author": "Mohamed Islam Boumendjel",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
-    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "json-server": "^0.16.2"
   }

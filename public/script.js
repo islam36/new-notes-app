@@ -29,14 +29,42 @@ function showAlert(msg, color) {
 }
 
 
-//Toggle addNote modal when the user clicks outside the modal
+
+/**
+ * create a card element
+ */
+function createCard(note) {
+    let col = document.createElement('div');
+    col.className = "col-12 col-sm-4";
+    col.innerHTML = `
+        <div class="card mb-5 bg-warning id-${note.id}" >
+            <div class="card-header">
+                ${note.title}
+            </div>
+            <div class="card-body">
+                ${note.note}
+            </div> 
+        </div>`;
+    
+    col.querySelector('.card').addEventListener('click', () => {
+        showNoteModal.querySelector('#id').value = note.id;
+        showNoteModal.querySelector('#title').value = note.title;
+        showNoteModal.querySelector('#note').value = note.note;
+
+        toggleModal(showNoteModal);
+    });
+
+    return col;
+}
+
+//Toggle newNoteModal when the user clicks outside the modal
 window.addEventListener('click', (event) => {
     if(event.target == newNoteModal){
         toggleModal(newNoteModal);
     }
 });
 
-
+//Toggle showNoteModal when the user clicks outside the modal
 window.addEventListener('click', (event) => {
     if(event.target == showNoteModal){
         toggleModal(showNoteModal);
@@ -58,38 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .then( (notes) => {
         const row = document.querySelector('#notes');
         if( notes != [] ) {
-            for(let i = 0; i < notes.length; i++) {
-                let note = document.createElement('div');
-                note.className = "col-12 col-sm-4";
-                note.innerHTML = `
-                <div class="card mb-5 bg-warning id-${notes[i].id}" >
-                    <div class="card-header">
-                        ${notes[i].title}
-                    </div>
-                    <div class="card-body">
-                        ${notes[i].note}
-                    </div> 
-                </div>`;
-
-                row.appendChild(note);
-            }
-            
-            const cards = document.querySelectorAll('#notes .card');
-
-            //when the user clicks on a card, toggle showNote modal with the note informations
-            cards.forEach((card) => {
-                card.addEventListener('click', () => {
-                    let showNoteModal = document.querySelector('.modal.showNote');
-                    let id = parseInt( card.classList.item(3).slice(3) );
-                    let title = notes[id].title;
-                    let note = notes[id].note;
-                    toggleModal(showNoteModal);
-
-                    showNoteModal.querySelector('#id').value = id;
-                    showNoteModal.querySelector('#title').value = title;
-                    showNoteModal.querySelector('#note').value = note;
-                });
-            })
+            notes.forEach((note) => {
+                let card = createCard(note);
+                row.appendChild(card);
+            });
         }
         else {
             row.innerHTML = 'You have no notes :(';
@@ -135,18 +135,7 @@ form.addEventListener('submit', (event) => {
     })
     .then((note) => {
         const row = document.querySelector('#notes');
-        let newNote = document.createElement('div');
-        newNote.className = "col-12 col-sm-4";
-        newNote.innerHTML = `
-            <div class="card mb-5 bg-warning id-${note.id}" >
-                <div class="card-header">
-                    ${note.title}
-                </div>
-                <div class="card-body">
-                    ${note.note}
-                </div> 
-            </div>`;
-
+        let newNote = createCard(note);
         row.appendChild(newNote);
         showAlert('Note added successfully!', 'success');
     })
@@ -157,7 +146,7 @@ form.addEventListener('submit', (event) => {
 });
 
 
-
+//handle the event of changing the content of a note
 changeNoteForm.addEventListener('submit', (event) => {
     event.preventDefault();
     toggleModal(showNoteModal);

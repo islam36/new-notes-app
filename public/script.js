@@ -87,8 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const row = document.querySelector('#notes');
         if( notes != [] ) {
             notes.forEach((note) => {
-                let card = createCard(note);
-                row.appendChild(card);
+                row.appendChild(createCard(note));
             });
         }
         else {
@@ -135,8 +134,7 @@ form.addEventListener('submit', (event) => {
     })
     .then((note) => {
         const row = document.querySelector('#notes');
-        let newNote = createCard(note);
-        row.appendChild(newNote);
+        row.appendChild(createCard(note));
         showAlert('Note added successfully!', 'success');
     })
     .catch((err) => {
@@ -194,7 +192,7 @@ changeNoteForm.addEventListener('submit', (event) => {
  * delete a note
  */
 function deleteNote(){
-    let noteId = parseInt( showNoteModal.querySelector('#id').value );
+    let noteId = showNoteModal.querySelector('#id').value;
     let data = { id: noteId };
     toggleModal(showNoteModal);
 
@@ -218,11 +216,6 @@ function deleteNote(){
         NoteToDelete.remove();
 
         let cards = document.querySelectorAll('#notes .card');
-        let i = 0;
-        cards.forEach((card) => {
-            card.className = "card mb-5 bg-warning id-" + i;
-            i++;
-        })
         showAlert('Note deleted successfully!', 'success');
     })
     .catch((err) => {

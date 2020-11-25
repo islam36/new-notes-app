@@ -39,7 +39,7 @@ app.post('/notes', (req, res) => {
             let data = JSON.parse(fs.readFileSync('db.json'));
             let notes = data.notes;
             let newNote = {
-                id: notes.length,
+                id: new Date().valueOf().toString(),
                 title: req.body.title,
                 note: req.body.note
             };
@@ -47,7 +47,7 @@ app.post('/notes', (req, res) => {
 
             fs.writeFileSync('db.json', JSON.stringify(data, null, 2));
 
-            res.statusCode = 200;
+            res.statusCode = 201;
             res.setHeader('Content-Type', 'application/json');
             res.json(newNote);
         }
@@ -72,7 +72,7 @@ app.put('/notes', (req, res) => {
             
             let note = null;         
             for(let i=0; i < notes.length; i++){
-                if (notes[i].id == req.body.id) {
+                if (notes[i].id === req.body.id) {
                     note = notes[i];
                     break;
                 }
@@ -112,14 +112,10 @@ app.delete('/notes', (req, res) => {
         if(fs.existsSync('db.json') ){
             let data = JSON.parse(fs.readFileSync('db.json'));
             let notes = data.notes;
+            let index = notes.findIndex((note) => note.id === req.body.id);
 
-            if (req.body.id > -1 && req.body.id < notes.length) {
-                notes.splice(req.body.id, 1);
-
-                for (let i = 0; i < notes.length; i++){
-                    notes[i].id = i;
-                }
-
+            if (index > -1) {
+                notes.splice(index, 1);
 
                 fs.writeFileSync('db.json', JSON.stringify(data, null, 2));
 

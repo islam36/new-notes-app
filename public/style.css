@@ -9,6 +9,12 @@ h1 svg {
     fill: #ffc107;
     width: 50px;
     height: 50px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+h1 svg:hover {
+    transform: scale(1.05);
 }
 
 
@@ -57,3 +63,4 @@ h1 svg {
 .modal.active .card{
     transform: translateY(0);
 }
+

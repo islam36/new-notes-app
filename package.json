@@ -4,7 +4,8 @@
   "description": "Just a simple web app to take notes that I made in order to practise what I learned",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "startDev": "nodemon index.js"
   },
   "keywords": [
     "Node.js",

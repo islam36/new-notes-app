@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
-    <title>New Note app</title>
+    <title>Note-it</title>
 </head>
 <body>
     <header class="container my-5">
@@ -14,19 +14,28 @@
                 <path
                     d="M312 320h136V56c0-13.3-10.7-24-24-24H24C10.7 32 0 42.7 0 56v400c0 13.3 10.7 24 24 24h264V344c0-13.2 10.8-24 24-24zm129 55l-98 98c-4.5 4.5-10.6 7-17 7h-6V352h128v6.1c0 6.3-2.5 12.4-7 16.9z" />
             </svg>
-            Note app
+            Note-it
         </h1>
     </header>
 
     <main class="container my-5">
-        <h1>Notes</h1>
-        <hr>
-        <div class="row" id="notes">
-        </div>
-        <hr>
         <button class="btn btn-block btn-primary" onclick="toggleModal(newNoteModal);">
             Add new note
         </button>
+        <hr>
+        <h1>Notes</h1>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">🔍</span>
+            </div>
+            <input type="text" class="form-control" id="search"
+                onkeyup="search();" placeholder="Search for something">
+        </div>
+
+        <hr>
+        <div class="row" id="notes">
+        </div>
     </main>
 
 
@@ -91,7 +100,10 @@
         </div>      
     </div>
 
-
+    <footer class="text-center bg-dark">
+        <p class="text-light">By <a href="https://www.github.com/islam36" target="_blank"> Mohamed Islam Boumendjel </a> ✨ </p>
+        <p class="text-light">View source code on <a href="https://www.github.com/islam36/new-notes-app.git" target="_blank">github</a></p>
+    </footer>
     <script src="/script.js"></script>
 </body>
 </html>

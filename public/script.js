@@ -57,6 +57,28 @@ function createCard(note) {
     return col;
 }
 
+/**
+ * Filter notes when the user search for something
+ */
+function search() {
+    let input = document.querySelector('#search').value;
+    if (input != "") {
+        input = input.toUpperCase();
+    }
+
+    let notes = document.querySelectorAll('#notes .card');
+    notes.forEach((note) => {
+        let text = note.querySelector('.card-header').innerText || note.querySelector('.card-header').textContent;
+        text += " " + note.querySelector('.card-body').innerText || note.querySelector('card-body').textContent;
+        if (text.toUpperCase().indexOf(input) < 0){
+            note.parentElement.style.display = "none";
+        }
+        else {
+            note.parentElement.style.display = "";
+        }
+    })
+}
+
 //Toggle newNoteModal when the user clicks outside the modal
 window.addEventListener('click', (event) => {
     if(event.target == newNoteModal){
